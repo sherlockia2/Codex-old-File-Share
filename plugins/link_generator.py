@@ -25,6 +25,8 @@ async def batch(client: Client, message: Message):
     while True:
         try:
             second_message = await client.ask(text = "Forward the Last Message from DB Channel (with Quotes)..\nor Send the DB Channel Post link", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=30)
+            if second_message.text == "/cancel":
+                return await message.reply_text('Cancelled Successfully ✌')
         except:
             return
         s_msg_id = await get_message_id(client, second_message)
